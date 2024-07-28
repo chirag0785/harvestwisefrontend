@@ -29,13 +29,20 @@ const App = () => {
   const dispatch=useDispatch();
   const [loading,setloading]=useState(true);
   useEffect(()=>{
-    setloading(false);
-    dispatch(getUserOnRefresh());
+    const fetchUser=async ()=>{
+      await dispatch(getUserOnRefresh());
+      setloading(false);
+    }
+    fetchUser();
   },[dispatch])
   return (
     <div className="flex flex-col min-w-screen min-h-screen bg-slate-800 text-white">
       <Navbar/>
-      {loading && <div>Loading...</div>}
+      {loading && (
+        <div className="flex items-center justify-center h-screen">
+          <div className="text-2xl font-semibold">Loading...</div>
+        </div>
+      )}
       {!loading && <main className='flex-grow container mx-auto p-4'>
       <Routes>
         <Route path='/' element={<Hero/>}/>
