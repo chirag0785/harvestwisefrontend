@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import CropSuitability from './components/SuitabilityForm/CropSuitability'
 import IrrigationRecommendation from './components/SuitabilityForm/IrrigationRecommendation'
@@ -27,13 +27,16 @@ import Product from './components/Product/Product'
 
 const App = () => {
   const dispatch=useDispatch();
+  const [loading,setloading]=useState(true);
   useEffect(()=>{
+    setloading(false);
     dispatch(getUserOnRefresh());
   },[dispatch])
   return (
     <div className="flex flex-col min-w-screen min-h-screen bg-slate-800 text-white">
       <Navbar/>
-      <main className='flex-grow container mx-auto p-4'>
+      {loading && <div>Loading...</div>}
+      {!loading && <main className='flex-grow container mx-auto p-4'>
       <Routes>
         <Route path='/' element={<Hero/>}/>
         <Route path='/suitablecrops' element={<CropSuitability/>}>
@@ -60,7 +63,7 @@ const App = () => {
         <Route path='/review/:orderId' element={<Review/>}/>
         <Route path='/inventory/:itemId' element={<Product/>}/>
       </Routes>
-      </main>
+      </main>}
       <Footer/>
     </div>
   )
