@@ -15,8 +15,6 @@ const ChatBox = () => {
     const socket = useMemo(() => connectSocket(), []);
     const lastMessageRef = useRef(null);
     const fileInputRef = useRef(null);
-    const [imgSent, setImgSent] = useState(false);
-    const [imgRec, setImgRec] = useState(false);
     const [activeUsers, setActiveUsers] = useState(0);
     const currentRoom = useMemo(() => rooms.find(r => r._id === id) || {}, [rooms, id]);
     // const [oldMessagesRoom,setoldMessagesRoom]=useState({});
@@ -63,7 +61,7 @@ const ChatBox = () => {
                         },
                         roomId: currentRoom._id
                     }));
-                    setImgRec(false);
+                    // setImgRec(false);
                 }
                 scrollIntoView();
             };
@@ -87,7 +85,6 @@ const ChatBox = () => {
             const formData = new FormData();
             if (file) {
                 formData.append('file', file);
-                setImgSent(true);
             }
             formData.append('msg', message.trim());
             formData.append('roomId', currentRoom._id);
@@ -109,10 +106,8 @@ const ChatBox = () => {
                 if (fileInputRef.current) {
                     fileInputRef.current.value = '';
                 }
-                setImgSent(false);
             } catch (error) {
                 console.error('Failed to send message:', error);
-                setImgSent(false);
             }
         }
     };

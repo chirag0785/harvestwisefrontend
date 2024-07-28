@@ -29,7 +29,7 @@ const App = () => {
   const dispatch=useDispatch();
   useEffect(()=>{
     dispatch(getUserOnRefresh());
-  },[])
+  },[dispatch])
   return (
     <div className="flex flex-col min-w-screen min-h-screen bg-slate-800 text-white">
       <Navbar/>

@@ -21,7 +21,7 @@ const AddItem = () => {
             formData.append('seller',seller);
             formData.append('description',description);
             formData.append('file',file);
-            const {data}=await axios.post(`https://harvestwisebackend.onrender.com/admin/add-item`,formData);
+            await axios.post(`https://harvestwisebackend.onrender.com/admin/add-item`,formData);
             navigate(`/inventory`);
         }
         if(file && name && category && price && seller){

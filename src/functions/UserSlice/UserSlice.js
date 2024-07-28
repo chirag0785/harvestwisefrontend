@@ -36,7 +36,7 @@ export const {userSignup,userLogin,setUser,userLogout}=UserSlice.actions
 
 export const getUserSignup=({formData})=>async (dispatch)=>{
     try{
-        const {data}=await axios.post(`https://harvestwisebackend.onrender.com/user/signup`,formData)
+        await axios.post(`https://harvestwisebackend.onrender.com/user/signup`,formData)
         return dispatch(userSignup({
             isLoggedIn:false,
             msg:"Sign up success",
@@ -64,7 +64,7 @@ export const getUserLogin=({username,password,email})=>async (dispatch)=>{
 
           const user={};
         Object.keys(data.user).forEach((key)=>{
-            if(key!='cart' && key!='orders'){
+            if(key!=='cart' && key!=='orders'){
                 user[key]=data.user[key];
             }
         })
@@ -85,7 +85,7 @@ export const getUserLogin=({username,password,email})=>async (dispatch)=>{
 }
 export const getUserLogout=({username,password,email})=> async (dispatch)=>{
     try{
-        const {data}=await axios.post(`https://harvestwisebackend.onrender.com/user/logout`,{
+        await axios.post(`https://harvestwisebackend.onrender.com/user/logout`,{
             username,
             password,
             email
@@ -131,7 +131,7 @@ export const getUserOnRefresh=()=> async (dispatch)=>{
 
 export const addReview=(formData)=>async (dispatch)=>{
     try{
-        const {data}=await axios.post(`https://harvestwisebackend.onrender.com/user/addreview`,formData);
+        await axios.post(`https://harvestwisebackend.onrender.com/user/addreview`,formData);
     }catch(err){
         console.log(err.response.data.message);
     }
@@ -139,7 +139,7 @@ export const addReview=(formData)=>async (dispatch)=>{
 
 export const editReview=({reviewId,review,itemId})=>async (dispatch)=>{
     try{
-        const {data}=await axios.post('https://harvestwisebackend.onrender.com/user/editreview',{
+        await axios.post('https://harvestwisebackend.onrender.com/user/editreview',{
             reviewId,
             review,
             itemId
